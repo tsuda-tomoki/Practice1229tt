@@ -10,7 +10,7 @@
 - GET /v1/employees -> 全ての従業員情報の一覧を返します
 - GET /v1/employees/{id} -> 指定した ID の従業員情報を返します
 - POST /v1/employees -> 指定した従業員情報を登録します
-- PATCH /v1/employees/{id} -> 指定した ID 従業員情報を更新します
+- PATCH /v1/employees/{id} -> 指定した ID の従業員情報を更新します
 - DELETE /v1/employees/{id} -> 指定した ID の従業員情報を削除します
 
 その他明示していない詳細は

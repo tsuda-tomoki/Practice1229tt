@@ -52,14 +52,14 @@ public class EmployeeManageStepdefs {
         testContext.setResponse(response);
     }
 
-    @もし("すべての従業員情報が取得する")
-    public void すべての従業員情報が取得する() {
+    @もし("すべての従業員情報を取得する")
+    public void すべての従業員情報を取得する() {
         Response response = given().get(GET_ALL_EMPLOYEE_PATH);
         testContext.setResponse(response);
     }
 
-    @もし("従業員情報が登録する")
-    public void 従業員情報が登録する(DataTable dataTable) {
+    @もし("従業員情報を登録する")
+    public void 従業員情報を登録する(DataTable dataTable) {
         List<Map<String, String>> employees = dataTable.asMaps(String.class, String.class);
 
         Response response = given()
@@ -98,8 +98,8 @@ public class EmployeeManageStepdefs {
         testContext.setResponse(response);
     }
 
-    @もし("従業員情報が変更する")
-    public void 従業員情報が変更する(DataTable dataTable) {
+    @もし("従業員情報を変更する")
+    public void 従業員情報を変更する(DataTable dataTable) {
         String id = given().get(GET_ALL_EMPLOYEE_PATH).jsonPath().getString("employees[0].id");
         List<Map<String, String>> employees = dataTable.asMaps(String.class, String.class);
 
