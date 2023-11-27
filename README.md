@@ -145,7 +145,7 @@ id で指定した従業員情報を更新します。
 ### 期待するリクエスト形式: 
 
 ```
-PATCH /v1/employees/{id}
+PATCH /v1/employees/1
 ```
 
 - Body
