@@ -1,7 +1,6 @@
 package com.example.presentation;
 
-import com.example.domain.RequestEmployee;
-import com.example.domain.ResponseEmployee;
+import com.example.domain.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,32 +17,32 @@ import java.util.List;
 @RequestMapping("/v1/employees")
 public class EmployeeController {
     @GetMapping
-    public List<ResponseEmployee> findAll() {
+    public List<Employee> findAll() {
         return List.of(
-                new ResponseEmployee(101, "Akiko", "Yosano"),
-                new ResponseEmployee(102, "Kazuma", "Kiryu")
+                new Employee(101, "Akiko", "Yosano"),
+                new Employee(102, "Kazuma", "Kiryu")
         );
     }
 
     @GetMapping("/{id}")
-    public ResponseEmployee findById(@PathVariable Integer id) {
-        List<ResponseEmployee> responseEmployeeList = List.of(
-                new ResponseEmployee(101, "Akiko", "Yosano"),
-                new ResponseEmployee(102, "Kazuma", "Kiryu")
+    public Employee findById(@PathVariable Integer id) {
+        List<Employee> employeeList = List.of(
+                new Employee(101, "Akiko", "Yosano"),
+                new Employee(102, "Kazuma", "Kiryu")
 
         );
-        ResponseEmployee responseEmployeeResponse = null;
-        for (ResponseEmployee responseEmployee : responseEmployeeList) {
-            if (id.equals(responseEmployee.id())) responseEmployeeResponse = responseEmployee;
+        Employee responseEmployee = null;
+        for (Employee employee : employeeList) {
+            if (id.equals(employee.id())) responseEmployee = employee;
         }
-        return responseEmployeeResponse;
+        return responseEmployee;
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable Integer id, @RequestBody RequestEmployee requestEmployee) {
-        String firstName = requestEmployee.getFirstName();
-        String lastName = requestEmployee.getLastName();
+    public void update(@PathVariable Integer id, @RequestBody Employee employee) {
+        String firstName = employee.firstName();
+        String lastName = employee.lastName();
 
         //TODO DataBase
 
