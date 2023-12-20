@@ -5,5 +5,5 @@ RUN mvn clean package -Dmaven.test.skip=true
 
 FROM amazoncorretto:17
 WORKDIR /examination1
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /build/examination1/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
