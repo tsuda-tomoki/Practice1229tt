@@ -1,9 +1,11 @@
-FROM amazoncorretto:17 AS build
-WORKDIR /build
-COPY ./ ./
-RUN ./mvnw clean package -Dmaven.test.skip=true
+# ビルド用のステージ
+FROM maven:3.8.4-openjdk-17 AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package -Dmaven.test.skip=true
 
-FROM amazoncorretto:17-alpine
-COPY --from=build /build/examination1-app-server/target/*.jar app.jar
-EXPOSE 8080
+# 実行用のステージ
+FROM amazoncorretto:17
+WORKDIR /deployments
+COPY --from=build /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
