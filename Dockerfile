@@ -1,7 +1,10 @@
 FROM amazoncorretto:17
 
-WORKDIR /deployments
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+FROM amazoncorretto:17 AS build
+COPY ././
+RUN ./mvnw clean package -Dmaven.test.skip=true
 
+FROM amazoncorretto:17-alpine
+COPY --from=build /target/examination1-0.0.1-SNAPSHOT.jar
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
