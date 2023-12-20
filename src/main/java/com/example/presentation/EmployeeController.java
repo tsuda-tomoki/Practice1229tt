@@ -19,16 +19,16 @@ public class EmployeeController {
     @GetMapping
     public List<Employee> findAll() {
         return List.of(
-                new Employee(101, "Akiko", "Yosano"),
-                new Employee(102, "Kazuma", "Kiryu")
+                new Employee("101", "Akiko", "Yosano"),
+                new Employee("102", "Kazuma", "Kiryu")
         );
     }
 
     @GetMapping("/{id}")
-    public Employee findById(@PathVariable Integer id) {
+    public Employee findById(@PathVariable String id) {
         List<Employee> employeeList = List.of(
-                new Employee(101, "Akiko", "Yosano"),
-                new Employee(102, "Kazuma", "Kiryu")
+                new Employee("101", "Akiko", "Yosano"),
+                new Employee("102", "Kazuma", "Kiryu")
 
         );
         Employee responseEmployee = null;
@@ -38,9 +38,9 @@ public class EmployeeController {
         return responseEmployee;
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/id")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable Integer id, @RequestBody Employee employee) {
+    public void update(@PathVariable String id, @RequestBody Employee employee) {
         String firstName = employee.firstName();
         String lastName = employee.lastName();
 
