@@ -1,6 +1,9 @@
 package com.example.presentation;
 
 import com.example.domain.Employee;
+import com.example.domain.EmployeeAll;
+import com.example.infrastructure.EmployeesMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,22 +20,22 @@ import java.util.List;
 @RequestMapping("/v1/employees")
 public class EmployeeController {
     @GetMapping
-    public List<Employee> findAll() {
-        return List.of(
-                new Employee("101", "Akiko", "Yosano"),
-                new Employee("102", "Kazuma", "Kiryu")
+    public EmployeeAll findAll() {
+        List<Employee> employees = List.of(
+                new Employee("1", "Taro", "Yamada"),
+                new Employee("2", "Jiro", "Yamada")
         );
+        return new EmployeeAll(employees);
     }
 
     @GetMapping("/{id}")
     public Employee findById(@PathVariable String id) {
-        List<Employee> employeeList = List.of(
-                new Employee("101", "Akiko", "Yosano"),
-                new Employee("102", "Kazuma", "Kiryu")
-
+        List<Employee> employees = List.of(
+                new Employee("1", "Taro", "Yamada"),
+                new Employee("2", "Jiro", "Yamada")
         );
         Employee responseEmployee = null;
-        for (Employee employee : employeeList) {
+        for (Employee employee : employees) {
             if (id.equals(employee.id())) responseEmployee = employee;
         }
         return responseEmployee;

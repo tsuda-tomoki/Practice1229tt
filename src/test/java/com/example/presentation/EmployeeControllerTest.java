@@ -31,7 +31,7 @@ class EmployeeControllerTest {
     @Test
     void GETでエンドポイントにidが指定された場合指定のidの従業員の名前が返される() throws Exception {
         // assert
-        mockMvc.perform(get("/v1/employees/101"))
+        mockMvc.perform(get("/v1/employees/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(readFrom("test-json/select-id.json")));
     }
