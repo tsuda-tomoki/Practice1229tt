@@ -13,7 +13,7 @@ public class Employees {
         this.id = id;
     }
 
-    public String getFirstName() {
+    public String getFirstname() {
         return firstName;
     }
 

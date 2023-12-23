@@ -24,4 +24,10 @@ public class EmployeeServiceImpl implements EmployeeService{
     public Employees findById(String id) {
         return employeesMapper.findById(id);
     }
+
+    @Override
+    @Transactional
+    public void insert(Employees employees) {
+        employeesMapper.insert(employees);
+    }
 }
