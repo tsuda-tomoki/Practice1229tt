@@ -7,6 +7,7 @@ import com.example.usecase.EmployeeService;
 import com.example.usecase.Employees;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 // TODO javadoc
@@ -36,11 +38,13 @@ public class EmployeeController {
         return employeeService.findById(id);
     }
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void insert(@RequestBody @Validated RequestEmployee requestEmployee) {
-//        employeeService.insert(requestEmployee);
-//    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Void> insert(@RequestBody @Validated RequestEmployee requestEmployee) {
+        String location = "/v1/employees/" + requestEmployee.getId();
+        employeeService.insert(requestEmployee);
+        return ResponseEntity.created(URI.create(location)).build();
+    }
 //
 //    @PatchMapping("/id")
 //    @ResponseStatus(HttpStatus.OK)
