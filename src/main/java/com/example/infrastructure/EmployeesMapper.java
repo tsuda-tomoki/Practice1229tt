@@ -1,5 +1,6 @@
 package com.example.infrastructure;
 
+import com.example.domain.RequestEmployee;
 import com.example.usecase.Employees;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,7 +17,6 @@ public interface EmployeesMapper {
     @Select("SELECT id, first_name, last_name FROM employees WHERE id = #{id}")
     Employees findById(String id);
 
-    @Insert("INSERT INTO employees(first_name, last_name) VALUES(#{first_name}, #{last_name})")
-    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
-    void insert(Employees employees);
+    @Insert("INSERT INTO employees (id, first_name, last_name) VALUES (nextval('EMPLOYEE_ID_SEQ'), #{firstName}, #{lastName})")
+    void insert(RequestEmployee requestEmployee);
 }

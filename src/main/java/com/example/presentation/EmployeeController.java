@@ -2,6 +2,7 @@ package com.example.presentation;
 
 import com.example.domain.Employee;
 import com.example.domain.EmployeeAll;
+import com.example.domain.RequestEmployee;
 import com.example.usecase.EmployeeService;
 import com.example.usecase.Employees;
 import lombok.AllArgsConstructor;
@@ -37,8 +38,9 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee insert(@RequestBody @Validated Employees employees) {
-        return new Employee(employees.getId(), employees.getFirstName(),employees.getLastName());
+    // TODO 修正あり
+    public void insert(@RequestBody @Validated RequestEmployee requestEmployee) {
+        employeeService.insert(requestEmployee);
     }
 //
 //    @PatchMapping("/id")

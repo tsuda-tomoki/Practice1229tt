@@ -1,5 +1,6 @@
 package com.example.usecase;
 
+import com.example.domain.RequestEmployee;
 import com.example.infrastructure.EmployeesMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     @Transactional
-    public void insert(Employees employees) {
-        employeesMapper.insert(employees);
+    public void insert(RequestEmployee requestEmployee) {
+       employeesMapper.insert(requestEmployee);
     }
 }
