@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
@@ -41,9 +42,10 @@ public class EmployeeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> insert(@RequestBody @Validated RequestEmployee requestEmployee) {
-        String location = "/v1/employees/" + requestEmployee.getId();
         employeeService.insert(requestEmployee);
-        return ResponseEntity.created(URI.create(location)).build();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().pathSegment(requestEmployee.getId())
+                .build().encode().toUri();
+        return ResponseEntity.created(location).build();
     }
 //
 //    @PatchMapping("/id")
