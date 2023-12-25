@@ -36,12 +36,11 @@ public class EmployeeController {
         return employeeService.findById(id);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    // TODO 修正あり
-    public void insert(@RequestBody @Validated RequestEmployee requestEmployee) {
-        employeeService.insert(requestEmployee);
-    }
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void insert(@RequestBody @Validated RequestEmployee requestEmployee) {
+//        employeeService.insert(requestEmployee);
+//    }
 //
 //    @PatchMapping("/id")
 //    @ResponseStatus(HttpStatus.OK)
