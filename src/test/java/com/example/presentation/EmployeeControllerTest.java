@@ -1,6 +1,7 @@
 package com.example.presentation;
 
 import com.example.domain.Employee;
+import com.example.usecase.Employees;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -44,8 +45,8 @@ class EmployeeControllerTest {
     void POSTでエンドポイントにemployeesが指定された場合新規にデータが追加される() throws Exception {
         // setup
         mockMvc.perform(post("/v1/employees")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(readFrom("test-json/post-ok.json")))
+                        .content(readFrom("test-json/post-ok.json"))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
 //    @Test

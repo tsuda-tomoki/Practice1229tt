@@ -6,19 +6,15 @@ import com.example.usecase.EmployeeService;
 import com.example.usecase.Employees;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 // TODO javadoc
@@ -40,16 +36,9 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employees> insert(@RequestBody @Validated Employee employee) {
-        Employees employees = new Employees();
-        employees.setFirstName(employee.firstName());
-        employees.setLastName(employee.lastName());
-
-        employeeService.insert(employees);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .pathSegment(employees.getId()).build().encode().toUri();
-
-        return ResponseEntity.created(uri).build();
+    @ResponseStatus(HttpStatus.CREATED)
+    public Employee insert(@RequestBody @Validated Employees employees) {
+        return new Employee(employees.getId(), employees.getFirstName(),employees.getLastName());
     }
 //
 //    @PatchMapping("/id")
