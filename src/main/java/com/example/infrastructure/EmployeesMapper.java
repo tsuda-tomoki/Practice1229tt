@@ -18,5 +18,6 @@ public interface EmployeesMapper {
     Employees findById(String id);
 
     @Insert("INSERT INTO employees (id, first_name, last_name) VALUES (nextval('EMPLOYEE_ID_SEQ'), #{firstName}, #{lastName})")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     void insert(RequestEmployee requestEmployee);
 }
