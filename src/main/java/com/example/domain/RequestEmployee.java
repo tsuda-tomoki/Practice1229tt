@@ -1,8 +1,13 @@
 package com.example.domain;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class RequestEmployee {
+    @NotBlank
     String firstName;
+    @NotBlank
     String lastName;
+    @NotBlank
     String id;
 
     public String getId() {

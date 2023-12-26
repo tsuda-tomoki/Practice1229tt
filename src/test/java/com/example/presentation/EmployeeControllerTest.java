@@ -1,6 +1,5 @@
 package com.example.presentation;
 
-import com.example.domain.Employee;
 import com.example.usecase.Employees;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +48,16 @@ class EmployeeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
+
+    @Test
+    void POSTでエンドポイントにemployeesが指定され不正なJSONが来たら400エラーを出す() throws Exception {
+        // setup
+        mockMvc.perform(post("/v1/employees")
+                        .content(readFrom("test-json/post-bad.json"))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
 //    @Test
 //    void PATCHでエンドポイントにidが指定された場合指定のidの従業員の名前が更新される() throws Exception {
 //        // assert

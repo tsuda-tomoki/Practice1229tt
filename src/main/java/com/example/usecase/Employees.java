@@ -1,8 +1,17 @@
 package com.example.usecase;
 
+import jakarta.validation.constraints.NotBlank;
+import lombok.NonNull;
+
 public class Employees {
+
+    @NotBlank
     private String id;
+
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
 
     public String getId() {
