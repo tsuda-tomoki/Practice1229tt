@@ -48,16 +48,23 @@ public class EmployeeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RequestEmployee> insert(@RequestBody @Validated RequestEmployee requestEmployee) {
+        URI location =
+                ServletUriComponentsBuilder.fromCurrentRequest()
+                        .pathSegment(requestEmployee.getId())
+                        .build().encode().toUri();
         try {
             employeeService.insert(requestEmployee);
-            URI location =
-                    ServletUriComponentsBuilder.fromCurrentRequest()
-                            .pathSegment(requestEmployee.getId())
-                            .build().encode().toUri();
-            return ResponseEntity.created(location).build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            postErrorHandle();
         }
+        return ResponseEntity.created(location).build();
+    }
+
+    private static void postErrorHandle() {
+        List<Details> detailsList = List.of(new Details("firstName must not be blank"));
+        ErrorResponse errorResponse = new ErrorResponse(
+                "0002", "request validation error is occurred.", detailsList);
+        ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 //
 //    @PatchMapping("/id")
@@ -72,16 +79,16 @@ public class EmployeeController {
 //        System.out.println(lastName);
 //    }
 
-//    @ExceptionHandler
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ErrorResponse handleError(MethodArgumentNotValidException methodArgumentNotValidException) {
-//        List<Details> detailsList = new ArrayList<>();
-//
-//        BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
-//        List<FieldError> fieldErrorList = bindingResult.getFieldErrors();
-//        for (FieldError fieldError : fieldErrorList) {
-//            detailsList.add(new Details(fieldError.getField(), fieldError.getDefaultMessage()));
-//        }
-//        return new ErrorResponse("データ形式エラー", detailsList);
-//    }
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleError(MethodArgumentNotValidException methodArgumentNotValidException) {
+        List<Details> detailsList = new ArrayList<>();
+
+        BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
+        List<FieldError> fieldErrorList = bindingResult.getFieldErrors();
+        for (FieldError fieldError : fieldErrorList) {
+            detailsList.add(new Details(fieldError.getDefaultMessage()));
+        }
+        return new ErrorResponse("データ形式エラー","ERROR", detailsList);
+    }
 }

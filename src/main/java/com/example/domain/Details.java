@@ -1,4 +1,4 @@
 package com.example.domain;
 
-public record Details(String target, String message) {
+public record Details(String message) {
 }
