@@ -39,7 +39,7 @@ public class EmployeeController {
         return employeeService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RequestEmployee> insert(@RequestBody @Validated RequestEmployee requestEmployee) {
         employeeService.insert(requestEmployee);
