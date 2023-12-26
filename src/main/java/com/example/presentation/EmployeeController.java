@@ -39,11 +39,14 @@ public class EmployeeController {
         return employeeService.findById(id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RequestEmployee> insert(@RequestBody @Validated RequestEmployee requestEmployee) {
         employeeService.insert(requestEmployee);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().pathSegment(requestEmployee.getId())
+
+        URI location =
+                ServletUriComponentsBuilder.fromCurrentRequest()
+                        .pathSegment(requestEmployee.getId())
                 .build().encode().toUri();
         return ResponseEntity.created(location).build();
     }
