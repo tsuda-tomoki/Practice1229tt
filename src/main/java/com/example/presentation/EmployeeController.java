@@ -48,11 +48,11 @@ public class EmployeeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RequestEmployee> insert(@RequestBody @Validated RequestEmployee requestEmployee) {
+        employeeService.insert(requestEmployee);
         URI location =
                 ServletUriComponentsBuilder.fromCurrentRequest()
                         .path(requestEmployee.getId())
                         .build().encode().toUri();
-            employeeService.insert(requestEmployee);
         return ResponseEntity.created(location).build();
     }
 
