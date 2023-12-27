@@ -7,7 +7,7 @@ public class RequestEmployee {
     String firstName;
     @NotBlank
     String lastName;
-    @NotBlank
+
     String id;
 
     public String getId() {
