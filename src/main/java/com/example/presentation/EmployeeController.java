@@ -2,7 +2,7 @@ package com.example.presentation;
 
 import com.example.domain.Details;
 import com.example.domain.EmployeeAll;
-import com.example.domain.ErrorResponse;
+import com.example.domain.ExceptionHandResponse;
 import com.example.domain.RequestEmployee;
 import com.example.usecase.EmployeeService;
 import com.example.usecase.Employees;
@@ -62,9 +62,9 @@ public class EmployeeController {
 
     private static void postErrorHandle() {
         List<Details> detailsList = List.of(new Details("firstName must not be blank"));
-        ErrorResponse errorResponse = new ErrorResponse(
+        ExceptionHandResponse exceptionHandResponse = new ExceptionHandResponse(
                 "0002", "request validation error is occurred.", detailsList);
-        ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionHandResponse);
     }
 //
 //    @PatchMapping("/id")
@@ -81,7 +81,7 @@ public class EmployeeController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleError(MethodArgumentNotValidException methodArgumentNotValidException) {
+    public ExceptionHandResponse handleError(MethodArgumentNotValidException methodArgumentNotValidException) {
         List<Details> detailsList = new ArrayList<>();
 
         BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
@@ -89,6 +89,6 @@ public class EmployeeController {
         for (FieldError fieldError : fieldErrorList) {
             detailsList.add(new Details(fieldError.getDefaultMessage()));
         }
-        return new ErrorResponse("データ形式エラー","ERROR", detailsList);
+        return new ExceptionHandResponse("データ形式エラー","ERROR", detailsList);
     }
 }
