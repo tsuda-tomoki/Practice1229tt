@@ -7,12 +7,14 @@ import com.example.domain.RequestEmployee;
 import com.example.usecase.EmployeeService;
 import com.example.usecase.Employees;
 import lombok.AllArgsConstructor;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,6 +56,12 @@ public class EmployeeController {
                         .pathSegment(requestEmployee.getId())
                         .build().encode().toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String id) {
+        employeeService.delete(id);
     }
 
 //

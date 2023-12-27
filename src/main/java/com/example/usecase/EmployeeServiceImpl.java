@@ -31,4 +31,10 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void insert(RequestEmployee requestEmployee) {
        employeesMapper.insert(requestEmployee);
     }
+
+    @Override
+    @Transactional
+    public void delete(String id) {
+        employeesMapper.delete(id);
+    }
 }
