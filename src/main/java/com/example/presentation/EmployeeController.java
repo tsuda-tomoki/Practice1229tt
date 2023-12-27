@@ -50,7 +50,7 @@ public class EmployeeController {
     public ResponseEntity<RequestEmployee> insert(@RequestBody @Validated RequestEmployee requestEmployee) {
         URI location =
                 ServletUriComponentsBuilder.fromCurrentRequest()
-                        .pathSegment(requestEmployee.getId())
+                        .path(requestEmployee.getId())
                         .build().encode().toUri();
             employeeService.insert(requestEmployee);
         return ResponseEntity.created(location).build();
