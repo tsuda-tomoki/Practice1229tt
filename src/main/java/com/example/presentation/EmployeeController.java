@@ -51,7 +51,7 @@ public class EmployeeController {
         employeeService.insert(requestEmployee);
         URI location =
                 ServletUriComponentsBuilder.fromCurrentRequest()
-                        .path(requestEmployee.getId())
+                        .pathSegment(requestEmployee.getId())
                         .build().encode().toUri();
         return ResponseEntity.created(location).build();
     }
