@@ -52,20 +52,10 @@ public class EmployeeController {
                 ServletUriComponentsBuilder.fromCurrentRequest()
                         .pathSegment(requestEmployee.getId())
                         .build().encode().toUri();
-        try {
             employeeService.insert(requestEmployee);
-        } catch (Exception e) {
-            postErrorHandle();
-        }
         return ResponseEntity.created(location).build();
     }
 
-    private static void postErrorHandle() {
-        List<Details> detailsList = List.of(new Details("firstName must not be blank"));
-        ExceptionHandResponse exceptionHandResponse = new ExceptionHandResponse(
-                "0002", "request validation error is occurred.", detailsList);
-        ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionHandResponse);
-    }
 //
 //    @PatchMapping("/id")
 //    @ResponseStatus(HttpStatus.OK)
@@ -82,13 +72,7 @@ public class EmployeeController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionHandResponse handleError(MethodArgumentNotValidException methodArgumentNotValidException) {
-        List<Details> detailsList = new ArrayList<>();
-
-        BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
-        List<FieldError> fieldErrorList = bindingResult.getFieldErrors();
-        for (FieldError fieldError : fieldErrorList) {
-            detailsList.add(new Details(fieldError.getDefaultMessage()));
-        }
-        return new ExceptionHandResponse("データ形式エラー","ERROR", detailsList);
+        List<Details> detailsList = List.of(new Details("firstName must not be blank"));
+        return new ExceptionHandResponse("0002","request validation error is occurred.", detailsList);
     }
 }
