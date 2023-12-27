@@ -5,7 +5,6 @@ import lombok.NonNull;
 
 public class Employees {
 
-    @NotBlank
     private String id;
 
     @NotBlank
