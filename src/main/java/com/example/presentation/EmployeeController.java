@@ -73,7 +73,7 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionHandResponse handleEmployeeNotFound(EmployeesNotFoundException e) {
         String message = e.getMessage();
-        List<Details> detailsList = List.of();
-        return new ExceptionHandResponse("0003", message, detailsList);
+        List<Details> details = List.of();
+        return new ExceptionHandResponse("0003", message, details);
     }
 }
