@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 
 // TODO javadoc
@@ -57,9 +58,8 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Employees delete(@PathVariable String id) {
+    public void delete(@PathVariable String id) {
         employeeService.delete(id);
-        return employeeService.findById(id);
     }
 
     @ExceptionHandler
@@ -73,7 +73,6 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionHandResponse handleEmployeeNotFound(EmployeesNotFoundException e) {
         String message = e.getMessage();
-        List<Details> details = List.of();
-        return new ExceptionHandResponse("0003", message, details);
+        return new ExceptionHandResponse("0003", message, Collections.emptyList());
     }
 }
