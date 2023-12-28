@@ -45,11 +45,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public Employees findById(@PathVariable String id) {
-        Employees employees = employeeService.findById(id);
-        if (employees == null) {
-            return new Employees();
-        }
-        return employees;
+        return employeeService.findById(id);
     }
 
     @PostMapping
@@ -65,9 +61,9 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Employees delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         employeeService.delete(id);
-        return employeeService.findById(id);
+        return ResponseEntity.noContent().build();
     }
 
 //
