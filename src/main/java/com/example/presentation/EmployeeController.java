@@ -8,11 +8,8 @@ import com.example.domain.RequestEmployee;
 import com.example.usecase.EmployeeService;
 import com.example.usecase.Employees;
 import lombok.AllArgsConstructor;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,9 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 // TODO javadoc
@@ -63,23 +57,10 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public Employees delete(@PathVariable String id) {
         employeeService.delete(id);
-        return ResponseEntity.noContent().build();
+        return employeeService.findById(id);
     }
-
-//
-//    @PatchMapping("/id")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void update(@PathVariable String id, @RequestBody Employee employee) {
-//        String firstName = employee.firstName();
-//        String lastName = employee.lastName();
-//
-//        //TODO DataBase
-//
-//        System.out.println(firstName);
-//        System.out.println(lastName);
-//    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -92,8 +73,7 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionHandResponse handleEmployeeNotFound(EmployeesNotFoundException e) {
         String message = e.getMessage();
-        List<Details> detailsList = Collections.emptyList();
-        System.out.println(detailsList);
+        List<Details> detailsList = List.of();
         return new ExceptionHandResponse("0003", message, detailsList);
     }
 }
