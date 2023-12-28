@@ -61,8 +61,9 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable String id) {
+    public Employees delete(@PathVariable String id) {
         employeeService.delete(id);
+        return employeeService.findById(id);
     }
 
 //
@@ -89,7 +90,7 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionHandResponse handleEmployeeNotFound(EmployeesNotFoundException e) {
         String message = e.getMessage();
-        List<Details> detailsList = List.of();
+        List<Details> detailsList = List.of(new Details(""));
         return new ExceptionHandResponse("0003", message, detailsList);
     }
 }
