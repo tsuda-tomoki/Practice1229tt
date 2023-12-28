@@ -66,6 +66,14 @@ class EmployeeControllerTest {
         ).andExpect(status().isNoContent());
     }
 
+    @Test
+    void DELETEでエンドポイントに不正なidが指定されたとき400エラー() throws Exception {
+        // assert
+        mockMvc.perform(delete("/v1/employees/999")
+        ).andExpect(status().isBadRequest());
+    }
+
+
 //    @Test
 //    void PATCHでエンドポイントにidが指定された場合指定のidの従業員の名前が更新される() throws Exception {
 //        // assert

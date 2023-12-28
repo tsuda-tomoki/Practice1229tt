@@ -24,5 +24,5 @@ public interface EmployeesMapper {
     void insert(RequestEmployee requestEmployee);
 
     @Delete("DELETE FROM employees WHERE id = #{id}")
-     void delete(String id);
+     int delete(String id);
 }

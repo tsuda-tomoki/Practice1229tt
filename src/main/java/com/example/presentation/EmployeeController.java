@@ -1,5 +1,6 @@
 package com.example.presentation;
 
+import com.example.Exception.EmployeesNotFoundException;
 import com.example.domain.Details;
 import com.example.domain.EmployeeAll;
 import com.example.domain.ExceptionHandResponse;
@@ -82,5 +83,13 @@ public class EmployeeController {
     public ExceptionHandResponse handleError(MethodArgumentNotValidException methodArgumentNotValidException) {
         List<Details> detailsList = List.of(new Details("firstName must not be blank"));
         return new ExceptionHandResponse("0002","request validation error is occurred.", detailsList);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionHandResponse handleEmployeeNotFound(EmployeesNotFoundException e) {
+        String message = e.getMessage();
+        List<Details> detailsList = List.of();
+        return new ExceptionHandResponse("003", message, detailsList);
     }
 }
