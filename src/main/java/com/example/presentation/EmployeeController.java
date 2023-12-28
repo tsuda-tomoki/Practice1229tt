@@ -45,7 +45,11 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public Employees findById(@PathVariable String id) {
-        return employeeService.findById(id);
+        Employees employees = employeeService.findById(id);
+        if (employees == null) {
+            return new Employees();
+        }
+        return employees;
     }
 
     @PostMapping
@@ -90,7 +94,7 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionHandResponse handleEmployeeNotFound(EmployeesNotFoundException e) {
         String message = e.getMessage();
-        List<Details> detailsList = List.of(new Details(""));
+        List<Details> detailsList = List.of();
         return new ExceptionHandResponse("0003", message, detailsList);
     }
 }
