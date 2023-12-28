@@ -90,6 +90,6 @@ public class EmployeeController {
     public ExceptionHandResponse handleEmployeeNotFound(EmployeesNotFoundException e) {
         String message = e.getMessage();
         List<Details> detailsList = List.of();
-        return new ExceptionHandResponse("003", message, detailsList);
+        return new ExceptionHandResponse("0003", message, detailsList);
     }
 }
