@@ -28,6 +28,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 // TODO javadoc
@@ -90,7 +92,8 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionHandResponse handleEmployeeNotFound(EmployeesNotFoundException e) {
         String message = e.getMessage();
-        List<Details> detailsList = List.of();
+        List<Details> detailsList = Collections.emptyList();
+        System.out.println(detailsList);
         return new ExceptionHandResponse("0003", message, detailsList);
     }
 }
