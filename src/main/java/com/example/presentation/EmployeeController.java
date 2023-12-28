@@ -5,6 +5,7 @@ import com.example.domain.Details;
 import com.example.domain.EmployeeAll;
 import com.example.domain.ExceptionHandResponse;
 import com.example.domain.RequestEmployee;
+import com.example.domain.UpdateEmployee;
 import com.example.usecase.EmployeeService;
 import com.example.usecase.Employees;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,11 +64,17 @@ public class EmployeeController {
         employeeService.delete(id);
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable String id, @RequestBody @Validated UpdateEmployee updateEmployee) {
+        employeeService.update(id, updateEmployee);
+    }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionHandResponse handleError(MethodArgumentNotValidException methodArgumentNotValidException) {
         List<Details> detailsList = List.of(new Details("firstName must not be blank"));
-        return new ExceptionHandResponse("0002","request validation error is occurred.", detailsList);
+        return new ExceptionHandResponse("0002", "request validation error is occurred.", detailsList);
     }
 
     @ExceptionHandler

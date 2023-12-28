@@ -2,6 +2,7 @@ package com.example.usecase;
 
 import com.example.Exception.EmployeesNotFoundException;
 import com.example.domain.RequestEmployee;
+import com.example.domain.UpdateEmployee;
 import com.example.infrastructure.EmployeesMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,15 @@ public class EmployeeServiceImpl implements EmployeeService{
             throw new EmployeesNotFoundException("specified employee [id = " + id + "] is not found.");
         }
         employeesMapper.delete(id);
+    }
+
+    @Override
+    @Transactional
+    public void update(String id, UpdateEmployee updateEmployee) {
+        int count = employeesMapper.update(id, updateEmployee);
+        if (count == 0) {
+            throw new EmployeesNotFoundException("specified employee [id = " + id + "] is not found.");
+        }
+        employeesMapper.update(id, updateEmployee);
     }
 }

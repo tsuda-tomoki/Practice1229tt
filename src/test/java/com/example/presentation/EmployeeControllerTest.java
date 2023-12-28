@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static com.example.TestUtils.*;
+import static org.springframework.web.servlet.function.RequestPredicates.contentType;
 
 
 @SpringBootTest
@@ -73,12 +74,12 @@ class EmployeeControllerTest {
         ).andExpect(status().isBadRequest());
     }
 
-
-//    @Test
-//    void PATCHでエンドポイントにidが指定された場合指定のidの従業員の名前が更新される() throws Exception {
-//        // assert
-//        mockMvc.perform(patch("/v1/employees/101").content(readFrom("test-json/patch-before.json")))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.content().json(readFrom("test-json/patch-after.json")));
-//    }
+    @Test
+    void PATCHでエンドポイントにidが指定された場合指定のidの従業員の名前が更新される() throws Exception {
+        // assert
+        mockMvc.perform(patch("/v1/employees/1")
+                        .content(readFrom("test-json/patch-after.json"))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
 }
