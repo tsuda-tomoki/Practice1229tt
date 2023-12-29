@@ -32,30 +32,29 @@ import java.util.List;
 // TODO javadoc
 @RestController
 @AllArgsConstructor
-@RequestMapping("/v1/employees")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    @GetMapping("/v1/employees")
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> handleRootRequest() {
         return ResponseEntity.ok("Success! You've accessed the root URL of /v1/employees.");
     }
 
-    @GetMapping
+    @GetMapping("/v1/employees")
     @ResponseStatus(HttpStatus.OK)
     public EmployeeAll findAll() {
         List<Employees> employeesList = employeeService.findAll();
         return new EmployeeAll(employeesList);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/v1/employees/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Employees findById(@PathVariable String id) {
         return employeeService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/v1/employees")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RequestEmployee> insert(@RequestBody @Validated RequestEmployee requestEmployee) {
         employeeService.insert(requestEmployee);
@@ -66,13 +65,13 @@ public class EmployeeController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/v1/employees/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable String id) {
         employeeService.delete(id);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/v1/employees/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable String id, @RequestBody @Validated UpdateEmployee updateEmployee) {
         employeeService.update(id, updateEmployee);
