@@ -37,6 +37,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> handleRootRequest() {
         return ResponseEntity.ok("Success! You've accessed the root URL of /v1/employees.");
     }
