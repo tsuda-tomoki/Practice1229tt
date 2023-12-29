@@ -33,17 +33,23 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/v1/employees")
-@ResponseStatus(HttpStatus.OK)
 public class EmployeeController {
     private final EmployeeService employeeService;
 
+    @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
+    public void home() {
+    }
+
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public EmployeeAll findAll() {
         List<Employees> employeesList = employeeService.findAll();
         return new EmployeeAll(employeesList);
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Employees findById(@PathVariable String id) {
         return employeeService.findById(id);
     }
