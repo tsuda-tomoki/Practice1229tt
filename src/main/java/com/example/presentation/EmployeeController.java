@@ -87,7 +87,7 @@ public class EmployeeController {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionHandResponse handleEmployeeIdNotFound(EmployeesNotFoundIdException e) {
         String message = e.getMessage();
         return new ExceptionHandResponse("0001", message, Collections.emptyList());
