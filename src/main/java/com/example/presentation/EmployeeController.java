@@ -1,6 +1,7 @@
 package com.example.presentation;
 
 import com.example.Exception.EmployeesNotFoundException;
+import com.example.Exception.EmployeesNotFoundIdException;
 import com.example.domain.Details;
 import com.example.domain.EmployeeAll;
 import com.example.domain.ExceptionHandResponse;
@@ -33,6 +34,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/v1/employees")
+@ResponseStatus(HttpStatus.OK)
 public class EmployeeController {
     private final EmployeeService employeeService;
 
@@ -83,4 +85,12 @@ public class EmployeeController {
         String message = e.getMessage();
         return new ExceptionHandResponse("0003", message, Collections.emptyList());
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionHandResponse handleEmployeeIdNotFound(EmployeesNotFoundIdException e) {
+        String message = e.getMessage();
+        return new ExceptionHandResponse("0001", message, Collections.emptyList());
+    }
+
 }
