@@ -1,7 +1,6 @@
 package com.example.presentation;
 
 import com.example.Exception.EmployeesNotFoundException;
-import com.example.Exception.EmployeesNotFoundIdException;
 import com.example.domain.Details;
 import com.example.domain.EmployeeAll;
 import com.example.domain.ExceptionHandResponse;
@@ -85,12 +84,4 @@ public class EmployeeController {
         String message = e.getMessage();
         return new ExceptionHandResponse("0003", message, Collections.emptyList());
     }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionHandResponse handleEmployeeIdNotFound(EmployeesNotFoundIdException e) {
-        String message = e.getMessage();
-        return new ExceptionHandResponse("0001", message, Collections.emptyList());
-    }
-
 }

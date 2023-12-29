@@ -1,7 +1,6 @@
 package com.example.usecase;
 
 import com.example.Exception.EmployeesNotFoundException;
-import com.example.Exception.EmployeesNotFoundIdException;
 import com.example.domain.RequestEmployee;
 import com.example.domain.UpdateEmployee;
 import com.example.infrastructure.EmployeesMapper;
@@ -28,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Transactional(readOnly = true)
     public Employees findById(String id) {
         if (employeesMapper.findById(id) == null) {
-            throw new EmployeesNotFoundIdException("specified employee [id = " + id + "] is not found.");
+            throw new EmployeesNotFoundException("specified employee [id = " + id + "] is not found.");
         }
         return employeesMapper.findById(id);
     }
